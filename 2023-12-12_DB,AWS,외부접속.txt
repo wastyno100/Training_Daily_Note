@@ -1,0 +1,81 @@
+puTTY, MySql, HeidiSql을 동시에 켜놓고 작업하지 말 것 (오류로 인스턴스가 날라갈수있음)
+puTTY, MySql or puTTY, HeidiSql 사용은 괜찮음
+
+리눅스에 방화벽이 존재
+방화벽: DB, webServer을 사용할 때 방화벽이 작동
+puTTy에서는 방화벽 때문에 키페어를 사용함(암호화 기법으로 우회해서 들어감)
+인증시에는 ID, PW, 접속IP가 필요하다.(사용자 권한 설정할때 localHost로 되어있는지 중요, ip가 다르면 다른 사용자 취급 받는다.)
+aws, ubuntu 둘 다 외부접속을 허용하지말고 한쪽만 다 열고 다른 한쪽은 세부적으로 설정하는 경우가 많다.
+
+[DB 외부접속]
+	1. AWS 보안규칙
+	
+	
+	2. 리눅스 (방화벽, vi편집)
+		-방화벽-
+			sudo ufw show raw - 방화벽 기본 설정 보기
+			sudo ufw status - 방화벽 상태 확인
+			sudo ufw enable - 방화벽 상시 열기
+			sudo ufw default deny - 모든 외부접속 차단
+			sudo ufw default allow - 모든 외부접속 허용
+			sudo ufw allow 22/Tcp - 22번 포트의 Tcp 접속 허용
+			sudo ufw deny 22 - 22번 포트의 접속 차단
+			
+		-설명-
+			ufw -> port와 관련 됨
+			AWS는 방화벽보다 인바운드 규칙이 우선이다.
+			AWS 인바운드에서 열어주고 ubuntu는 최대한 건드리지 않는것이 좋을수있다.
+			sudo utf allow 3306/tcp로 방화벽에서 DB 허용
+			sudo ufw allow from 192.168.0.3 to any port 22 proto tcp - 192.168.0.3의 모든 접속 허용 (to any - 해당 ip 전부, proto - 프로토콜 종류, TCP/UDP 선택)
+				ㄴ SSH 접속할수 있는 특정 ip를 지정하는 결과 도출
+			sudo ufw allow 123/udp
+			sudo ufw 80/tcp
+			sudo ufw 3306/tcp
+			
+		-vi 편집기-
+			sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf
+			:q, :q! - 나가기(저장안됨)
+			:wq :wq! - 저장(!는 강제)
+	
+	3. DB 사용자 생성, 사용자 권한 설정
+		-사용자-
+			Create User 'root'@'%'; - 사용자 생성 (MySql user 테이블 내에 모든 정보가 포함되어있음, 거기에 집어넣기 위한 명령, %는 모든 ip라는 뜻이니 ip를 집어넣을수 있다.)
+			Create User 'papawon'@'LocalHost' identified by '1234'; - 사용자 생성 (identified by는 비밀번호도 같이 집어넣는다는 뜻)
+			Select User,Host From mysql.user; - 사용자 조회
+			Select User,Host,Password From mysql.user; - 사용자 조회 (패스워드 포함, 해시코드가 나옴)
+			Drop User 'papawon'@'LocalHost'; - 사용자 제거
+		
+			Grant ALL PRIVILEGS ON *.* To 'papawon'@'%' with grant option; - 권한부여 (사용자가 생성 되어도 권한이 없으면 아무것도 못함)
+			grant all on *.* to 'pts'@'%' identified by '1234' with grant option; - 권한부여 (패스워드 포함)
+			Revoke - 권한회수
+		
+		-설명-
+			ALL PRIVILEGS - CRUD권한을 다 준다는 뜻이다.
+			*.* - 왼쪽부터 DB명.테이블명이다.
+			가입했던 사용자가 탈퇴 하더라도 삭제하면 안되고 탈퇴회원db에 넣어놔야된다.
+			grant 명령 사용 시 grant select, update, insert, delect 로 권한을 선택해서 줄수있다.
+
+
+	[DB]	
+		update user set password=password('1234') where user='root'; - 패스워드 변경
+		flush privilieges; - 패스워드 변경 이후에 써주자
+
+	-설명-
+		mysqladmin -u root password '1234' - 패스워드 변경 (이런것들도 있다.)
+		set password for root=password('1234') - 패스워드 변경 (이런것들도 있다.)
+		mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql - db시간설정 관련(서버 시간과 동기화 시키면 되기때문에 쓸 이유가 없다.)
+		패스워드 변경 시 database선택을 안했다면 update mysql.user set으로 써야된다.
+		where user는 조건문이기 때문에 mysql.을 붙히지 않는다.
+		root 비밀번호는 보안저장이 가능한 장치에 저장한다.
+		update 와 set으로 모든걸 바꿀 수 있다.
+		
+[결론?]
+	AWS보안규칙 - ubuntu방화벽(port?) - vi편집(ip) - 사용자 추가 및 권한 부여 (보안규칙 or 사용자 추가 할 때 ip설정)
+	보안규칙(인바운드) - 방화벽(sudo ufw ~) - vi편집(sudo vim) - 사용자 추가 및 권한 부여 (권한부여, 생성 - grant select, insert on db.table ~)
+
+
+나 13.125.166.113
+김영진 43.203.69.20
+김정민 43.203.2.77
+유승현 15.165.69.176
+주민호 54.180.40.202
