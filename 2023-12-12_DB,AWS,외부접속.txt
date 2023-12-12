@@ -56,7 +56,7 @@ aws, ubuntu 둘 다 외부접속을 허용하지말고 한쪽만 다 열고 다�
 			grant 명령 사용 시 grant select, update, insert, delect 로 권한을 선택해서 줄수있다.
 
 
-	[DB]	
+[DB]	
 		update user set password=password('1234') where user='root'; - 패스워드 변경
 		flush privilieges; - 패스워드 변경 이후에 써주자
 
@@ -68,7 +68,7 @@ aws, ubuntu 둘 다 외부접속을 허용하지말고 한쪽만 다 열고 다�
 		where user는 조건문이기 때문에 mysql.을 붙히지 않는다.
 		root 비밀번호는 보안저장이 가능한 장치에 저장한다.
 		update 와 set으로 모든걸 바꿀 수 있다.
-		
+
 [결론?]
 	AWS보안규칙 - ubuntu방화벽(port?) - vi편집(ip) - 사용자 추가 및 권한 부여 (보안규칙 or 사용자 추가 할 때 ip설정)
 	보안규칙(인바운드) - 방화벽(sudo ufw ~) - vi편집(sudo vim) - 사용자 추가 및 권한 부여 (권한부여, 생성 - grant select, insert on db.table ~)
