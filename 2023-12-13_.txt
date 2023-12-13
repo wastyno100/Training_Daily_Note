@@ -1,0 +1,76 @@
+jsp를 사용하면 mvc패턴을 사용하는데 문제가 생긴다.
+리눅스에서 $표시가 나오면 일반 권한으로 접속 한 것이다. (#이 나올시 수퍼바이저 권한.)
+리눅스에서 ~ 표시는 하위 디렉토리 라는 의미다.
+오라클jdk 17버전 (스프링부트 3.0의 최소시점이 17이다.)
+인텔리제이 프로젝트 생성 시 나오는 Build system 에서 나중에 Maven을 많이 사용하게 된다.
+
+[리눅스 디렉토리 구조]
+	0. / - Root
+	1. /bin/ - User Binary
+	2. /dev/ - Device (장치)
+	3. /etc/ - Config (환경 설정)
+	4. /home/ - Root와 유사
+	5. /lib/ - System lib
+	6. /usr/ - user (사용자 정보 기록)
+		6-1. /bin/ - 일반 실행 파일
+		6-2. /sbin/ - 시스템 실행 파일
+	7. /var/ - 기타파일
+		
+		
+	-설명-
+		var - /www가 들어온다. (apache index.html이 들어있다.)
+		리눅스는 lib, 자료, 실행 파일들을 디렉토리 별로 나눠놓는다. (리눅스의 파일 시스템 특징)
+		/bin/ - cat, ls, kill, cd 등 일반적인 실행 명령들이 들어있다.
+		/sbin/ - sysctl, reboot 등 시스템 관련 명령들이 들어있다.
+		tree - tree명령어는 윈도우의 파일 탐색기와 같다, 현재 위치의 디렉토리 목록을 보여준다.
+		
+		
+[apache]
+	sudo apt-get install apache2 - 아파치 설치 (etc에 설치 됨)
+	apache2 -v - 버전 확인
+	sudo apt-get install net-tools - net-tools 설치
+	netstat -ntlp
+	sudo systemctl start apache2 - apache2 시작
+	sudo systemctl restart apache2 - apache2 재시작
+	sudo systemctl stop apache2 - apache2 중지
+	sudo systemctl status apache2 - apache2 상태 확인
+	sudo vi index.html - vi로 html 코드 편집
+	
+	-설명-
+		-netstat -ntlp 입력 시-
+			127.0.0.0.53:53 - 맨 뒤 53은 port번호
+			0.0.0.0:22 - putty 접속 하기 위해 22번 port가 열려있다는 뜻
+			AWS에서 apache를 tcp4에서 쓰는것을 막았다. (tcp6에서 나옴)
+			내용이 바뀌면 restart를 꼭 해주자.
+			js는 java기반이기 때문에 리눅스에도 java를 설치 해야 잘 작동된다.
+			r 읽기
+			w 쓰기
+			x 실행
+			
+[리눅스 자바]		
+	-자바 설치-
+		sudo apt-get install openjdk-11-jdk - 자바 개발 킷 설치
+		sudo apt-get install openjdk-11-jrebash - jre만 설치
+	
+	-환경 변수-
+		sudo vi /etc/profile - 환경변수 추가 하기 위한 것(java경로 안에서)
+			export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+			export PATH=$JAVA_HOME/bin/:$PATH
+			export CLASS_PATH=$JAVA_HOME/lib/:$CLASS_PATH
+		source /etc/profile - 소스 변경을 알림
+		sudo reboot now - ubuntu 자체 재부팅
+		echo $JAVA_HOME - 확인
+		java -version - 확인
+	
+	-설명-
+		서버에는 jre만 설치하는게 좋다.
+		node.js는 17이나 11버전이나 상관이 없지만 스프링부트 3.0은 17부터 지원하기 때문에 윈도우는17 리눅스는11을 쓴다.
+		17버전으로 만든것은 하위호환성을 갖기때문에 11이나 8버전에서도 돌아간다.
+		자바8 > 자바11 > 자바17 순으로 많이 쓴다.
+		리눅스에서 자바 설치 후 cd /usr/lib/jvm 에서 java-11-openjdk-amd64 있는지 확인.
+		
+		
+[윈도우 자바]
+	class - 명령 할 집합체
+	public static void main(String[] args) - 오브젝트 main, 자료형
+	System.out.printf("Hello world") - console.log와 같다

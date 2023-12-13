@@ -72,6 +72,11 @@ aws, ubuntu 둘 다 외부접속을 허용하지말고 한쪽만 다 열고 다�
 [결론?]
 	AWS보안규칙 - ubuntu방화벽(port?) - vi편집(ip) - 사용자 추가 및 권한 부여 (보안규칙 or 사용자 추가 할 때 ip설정)
 	보안규칙(인바운드) - 방화벽(sudo ufw ~) - vi편집(sudo vim) - 사용자 추가 및 권한 부여 (권한부여, 생성 - grant select, insert on db.table ~)
+	
+	-외부 연결 순서-
+	1. 인바운드 규칙
+	2. ubuntu 방화벽
+	3. DB계정 권한
 
 
 나 13.125.166.113
