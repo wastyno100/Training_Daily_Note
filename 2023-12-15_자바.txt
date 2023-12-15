@@ -1,0 +1,107 @@
+배열 - 가장 많이 사용하는 자료 구조
+Map 구조를 해시 구조라고 한다.
+해시에는 암호화가 들어간다.
+
+[자바]
+	-arraylist-
+		import java.util.Arrays;
+		import java.util.ArrayList;
+		ArrayList pitches = new ArrayList(); //빈 배열의 목록을 만든다
+		pitches.add("138"); //배열에 추가
+		System.out.println(pitches.get(2));
+		System.out.println(pitches.size()); //array는 length를 사용하지만 arraylist는 size를 사용
+		System.out.println(pitches.contains("140")); // 포함 하는지
+		System.out.println(pitches.remove(0)); // 인덱스넘버로 제거 하면 오브젝트 값이 출력 됨
+		System.out.println(pitches.remove("129")); // 오브젝트를 날리면 삭제 성공 여부가 출력 (true, false)
+		play.add("129");
+		play.add("135");
+		play.add("145");
+	-설명-
+		//라이브 탬플릿으로 단축키 add 가능
+		//ArrayList<String> pitches = new ArrayList<String>();
+		//원칙적으로는 <>안에 자료형을 선언 해야한다.
+		//ArrayList가 자료형이 아니기 때문에 자료형 지정을 해 줘야 한다.
+		//Array와 List는 인덱스 번호로 순차적으로 출력 (순차처리)
+	
+	-join-
+		ArrayList<String> play = new ArrayList(Arrays.asList("145","135","147"));
+		String result = String.join(", ", play);
+		System.out.println(result);
+	//-----------------------------------------------------------------------		
+		String[] play01 = new String[]{"145","135","147"};
+		String result01 = String.join(", ", play01); // join은 배열에도 사용 된다.
+		System.out.println(result01);
+
+	-Hash Map-
+		//key값으로 value를 가져온다.
+		HashMap<String, String> map = new HashMap<>();  
+        map.put("people","사람");
+        map.put("baseball","야구");
+        System.out.println(map.get("people"));
+		
+		Map<String, Integer> LinkedHashMap = new LinkedHashMap<>(); // 입력 순서대로 정렬
+		
+		Map<String, Integer> TreeMap = new TreeMap<>(); // 키값의 오른차순 정렬
+		
+		HashSet<String> set = new HashSet<>(Arrays.asList("h", "e", "l", "l", "o")); // 중복값 제거, 오름차순
+		
+		//교집합으로 찾음
+		HashSet<Integer> s1 = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
+        HashSet<Integer> s2 = new HashSet<>(Arrays.asList(2, 4, 6, 8, 10));
+        HashSet<Integer> intersection = new HashSet<>(s1);
+        intersection.retainAll(s2);
+        System.out.println(intersection);
+		
+		//s1과 s2를 합치고 중복값은 제거
+		HashSet<Integer> union = new HashSet<>(s1);
+        union.addAll(s2);
+        System.out.println(union);
+		
+		//순수 s1에만 있는 값만 나옴 (차집합)
+		HashSet<Integer> subtract = new HashSet<>(s1);
+        subtract.removeAll(s2);
+		
+		//내가 아는 그거
+		enum CoffeType{
+			AMERICANO,
+			ICE_AMERICANO,
+			CAFE_LATTE
+    }
+		public static void main(String[] args) {
+			System.out.println(CoffeType.AMERICANO);
+			System.out.println(CoffeType.ICE_AMERICANO);
+			System.out.println(CoffeType.CAFE_LATTE);
+
+    }
+		
+	-설명-
+		//해시는 암호화 기법.
+		//해시는 순서에 상관없이 랜덤이기 때문에 tree로 가져온다. linked는 크게 사용 안함
+
+	-논리연산자-
+		//사진참고
+		//논리 알고리즘을 풀기 위해
+		//XOR은 단독으로 사용 안 함
+		
+	-switch-
+		int month = 6;
+        String monthString = "";
+
+        switch (month){ //byte short char int enum string 만 들어올 수 있다
+            case 1: monthString = "jan";
+                break;
+            case 2: monthString = "feb";
+                break;
+            case 3: monthString = "mar";
+                break;
+            case 4: monthString = "apr";
+                break;
+            default: monthString = "없어요";
+                break;
+        }
+	
+	
+(External Libraries)
+	아이콘 C - Class
+	아이콘 I - Interface (접속 하기 위해 필요한 것)
+	import로 가져올 수 있다
