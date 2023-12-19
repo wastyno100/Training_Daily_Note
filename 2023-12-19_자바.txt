@@ -1,0 +1,76 @@
+[자바]
+	
+
+(패키지)
+	디렉토리 -> 중복성을 가지거나 일관성이 필요한 파일의 집합
+	디렉토리와 자바의 패키지는 많이 유사하다.
+	public은 내 패키지만이 아닌 프로그램 내에서 사용한다
+		1. 파일 관리를 위한 디렉토리 기능(폴더)
+		2. 클래스를 유일하게 구분 할 수 있는 식별자 역할
+		
+		//com.company or com.user.user.class 처럼 dot으로 구분한다. (패키지의 경로명)
+
+(인터페이스)
+	interface란? 객체간 교환성 증대
+	
+	public interface Exm {
+		public int Max_Vol = 10; // public으로 이 상수를 어디서든 가져올수있는 전역상수로 선언한것
+		public int Min_vol = 0;
+
+		public void turnOn(); // 어느 클래스에서도 만들지 않은 실물 없는 추상 메서드다.
+		public void turnOff();
+		public void setVol(int vol);
+
+		default void setMute (boolean mute){
+			if (mute) System.out.println("무음처리");
+			else System.out.println("무음해제");
+		}
+
+		static void changeBattery(){ //정적 메서드일 경우에 public을 무시하고(public만) 사용해도 된다. (인터페이스 내 에서)
+
+		}
+	}
+
+	//추상 메서드라는 것이 존재
+	//개발언어와 클래스간에 자료주고받는 통신역할을 하는게 인터페이스
+	//인터페이스는 추상메서드를 만들어서 연동 시킬수있다.
+	
+	public class Tv implements Exm{ // implements - 인터페이스에서 만든걸 들고와서 사용한다.
+
+    private int vol;
+
+
+    // 추상 메소드를 실제 메소드로 바꿔 놓은것
+    @Override
+    public void turnOn(){
+        System.out.println("티비 끔.");
+    }
+
+    @Override
+    public void turnOff() {
+        System.out.println("티비 킴");
+    }
+
+    @Override
+    public void setVol(int vol) {
+        if (vol > Exm.Max_Vol) this.vol = Exm.Max_Vol;
+        else if (vol < Exm.Min_vol) this.vol = Exm.Min_vol;
+        else this.vol = vol;
+        System.out.println("현재 소리 크기는 : " + this.vol);
+    }
+}
+
+	-어너테이션-
+		1. 컴파일러가 코드 문법 에러 체크 정보를 전달
+		2. 소프트웨어 개발 툴 (SST)
+		3. 런타임 (실행중)시 특정 기능을 실행하는 정보를 담고 있음
+			War : 웹에서 실행 할 수 있는 압축형태/ 프론트에서 사용(web server)
+			Jar : jvm기반에서 실행 하는 압축형태/ 백엔드에서 사용(was)
+			Tar : Linux 기반 압축방법
+		
+		// 어너테이션(@override)는 컴파일 과정에서 필요
+		// 어너테이션으로 표시를 주면 컴파일중에 인터페이스와 제대로 연결 됐는지 자동으로 확인 해 줌
+		// .java확장자가 컴파일 과정을 거치면 .class가 되고 이것이 실행 파일이다.
+		// .class는 jvm 위에서 구동 되는 기계어다.
+		// 이클립스, 인텔리제이는 IDE (컴파일 과정 거침) vsc는 에디터
+		// 어너테이션은 XML이라는 환경설정 파일의 생성, JAR 압축파일 생성 시에 사용 됨 
