@@ -1,0 +1,27 @@
+[자바]
+	super() - 자식이 부모에 기본 생성자를 땡겨온다
+	final int MAX_VOL = 0; - 안바뀜
+	class dog extends Animal - extends 상속받음
+
+	class  Calculator { // integer에 자료형 값이 없을때 NullPointerException이 발생한다
+		Integer value;
+
+		Calculator(){
+			this.value = 0;
+		}// 자료형값을 이렇게 넣어줘야 오류가 안 뜸
+
+		void add(int val){
+			this.value += val;
+		}
+
+		public Integer getValue() {
+			return this.value;
+		}
+	}
+	public class Sample {
+		public static void main(String[] args) {
+			Calculator cal = new Calculator();
+			cal.add(3);
+			System.out.println(cal.getValue());
+		}
+	}
