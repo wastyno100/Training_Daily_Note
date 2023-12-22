@@ -1,0 +1,14 @@
+[자바]
+	(스캐너)
+		public static void main(String[] args) throws IOException{
+	//        Scanner sc = new Scanner(System.in);
+	//        System.out.println(sc.nextLine());
+	//        FileOutputStream fw = new FileOutputStream("c:/git-work/pts/work/java_exm/t1.txt");
+		PrintWriter fw = new PrintWriter("c:/git-work/pts/work/java_exm/t1.txt");
+		for (int i = 1; i < 8; i++) {
+			String data = i + "번 줄\r\n";
+			fw.write(data);
+	//            fw.write(data.getBytes());
+		}
+		fw.close();
+	}
