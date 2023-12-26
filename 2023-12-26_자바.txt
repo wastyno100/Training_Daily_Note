@@ -1,0 +1,30 @@
+[자바]
+	예외와 오류의 차이 무엇일까?
+	예외란 우리가 예측 할수있는 범위 내의 에러
+
+	우리가 의도 한 결과가 나오지 않으면 에러
+
+	ex) 파일명 101.txt 열려고 하는데 존재하지 않으면 에러
+
+
+	public class Exm_02 { // try catch - 예외처리
+		public void beRun(){
+			System.out.println("ok");
+		}
+		public static void main(String[] args) {
+			Exm_02 exm_02 = new Exm_02();
+			int c = 0;
+			try {
+				c = 4 / 0;
+				exm_02.beRun();
+			} catch (ArithmeticException e){
+				c = 4 / 2;
+			} finally { // 예외와 상관없이 무조건 실행시킴
+				exm_02.beRun();
+			}
+
+		}
+	}
+	
+	System.err.println("읽기 오류"); - 에러 출력
+
