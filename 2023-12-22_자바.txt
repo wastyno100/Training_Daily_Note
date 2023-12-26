@@ -12,3 +12,33 @@
 		}
 		fw.close();
 	}
+	 public void aa1(){
+        System.out.println("첫째 수를 입력");
+        sc = new Scanner(System.in);
+        a = sc.nextInt();
+
+        System.out.println("둘째 수를 입력");
+        b = sc.nextInt();
+
+        if (a > b) {
+            System.out.printf("%d ~ %d의 모든 수의 합을 구하시겠습니까? y/n\n",b,a);
+            c = sc.next();
+            if (c.equals("y")) {
+                for (int i = b; i <= a; i++) {
+                    result += i;
+                }
+                System.out.println("합의 결과는 : " + result);
+                System.out.printf("%d ~ %d의 모든 수의 합은 : %d", a, b, result);
+            }else aa1();
+        }
+        else {
+            for (int i = a; i <= b; i++) {
+                result += i;
+            }
+            System.out.println("합의 결과는 : " + result);
+            System.out.printf("%d ~ %d의 모든 수의 합은 : %d", a, b, result);
+        }
+    }
+	
+	// 내 메서드 안에 내 메서드를 넣을수 있다.
+	
