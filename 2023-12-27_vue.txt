@@ -1,0 +1,25 @@
+FrameWork - 모듈화 되어있다, 모듈간의 조합으로 완성체를 만드는 구조다, 레고블럭
+	Front - React.js, vue.js
+		ㄴReact - 스크립트 사용에 종속되어 있는 듯?
+		
+	Back - spring, spring boot
+	
+		JSP -> JDBC -> Mybatis
+			JSP - JDBC를 종속해서 사용 할 수 밖에 없다.
+			Mybatis - spring
+			
+웹에서만 사용할게 아니면 node를 설치해야한다.
+	node -> React, VUE -> JS 순서
+	
+	npm -> 실행환경 만듬, 프로젝트 생성이라고 표현한다.(외부라이브러리, 도구, 의존성, package.json파일 생성)
+		package.json 에 의존성이 들어감 (자료 처리를 위한 로직 구조)
+		
+		nvm install - 프로젝트 생성 (생성 할 프로젝트 디렉토리가 존재 해야 한다.)
+		nvm server - 로컬서버 구동
+		
+		npm install -g @vue/cli - vuecli 설치
+		npm init -y - 노드 기반으로 시작한다는걸 정의
+		vue create testvue - vue 프로젝트 생성
+			ㄴ 맨밑 - babel, type, router, vuex, css, linter 체크 - 2.x - y - y - y - sass/scss - error - lint on save - json - y - enter
+		npm run serve - 서버시작?
+		

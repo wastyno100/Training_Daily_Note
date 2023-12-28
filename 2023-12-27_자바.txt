@@ -1,0 +1,101 @@
+package FileIo.JavaExm12_27_01;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Exm_01 {
+    private static final int STU_COUNT = 5;
+    private static final int SUB_COUNT = 5;
+
+    public static void main(String[] args) {
+        int[][] scores = new int[STU_COUNT][SUB_COUNT];
+        int[] totalScores = new int[STU_COUNT];
+        String[] names = new String[STU_COUNT];
+
+        String filePath = "C:/git-work/pts/work/java_exm/data.txt";
+
+        try {
+            FileInputStream fileInputStream = new FileInputStream(new File(filePath));
+            Scanner sc = new Scanner(fileInputStream);
+            sc.useDelimiter(",\\s*|\\s*,\\s*");
+
+            for (int i = 0; i < STU_COUNT; i++) {
+                if (sc.hasNextInt()) {
+                    sc.nextInt(); // 학생 번호를 건너뜁니다.
+                }
+
+                if (sc.hasNext()) {
+                    names[i] = sc.next();
+                }
+
+                int total = 0;
+                for (int j = 0; j < SUB_COUNT; j++) {
+                    if (sc.hasNextInt()) {
+                        scores[i][j] = sc.nextInt();
+                        total += scores[i][j];
+                    }
+                }
+
+                double avg = (double) total / SUB_COUNT;
+                totalScores[i] = total;
+            }
+
+            sc.close();
+
+            // 순위 계산
+            int[] ranks = getRanks(totalScores);
+
+            // 헤더 출력
+            System.out.println("번호 이름 국어 영어 수학 과학 사회 총점 평균 순위");
+
+            // 결과 출력
+            for (int i = 0; i < STU_COUNT; i++) {
+                int rank = ranks[i];
+                System.out.printf("%-4d %s %d %d %d %d %d %d %.2f %d%n", i + 1, names[i], scores[i][0], scores[i][1],
+                        scores[i][2], scores[i][3], scores[i][4], totalScores[i], (double) totalScores[i] / SUB_COUNT,
+                        rank);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("파일을 찾을 수 없습니다: " + filePath);
+        } catch (InputMismatchException e) {
+            System.out.println("\n입력 형식이 올바르지 않습니다. 숫자를 입력하세요.");
+        }
+    }
+
+    private static int[] getRanks(int[] totalScores) {
+        // 배열을 내림차순 정렬
+        Integer[] indices = new Integer[STU_COUNT];
+        for (int i = 0; i < STU_COUNT; i++) {
+            indices[i] = i;
+        }
+
+        Arrays.sort(indices, Comparator.comparingInt(index -> totalScores[index]));
+
+        // 동점자 처리를 위한 순위 배열
+        int[] ranks = new int[STU_COUNT];
+        Arrays.fill(ranks, -1);
+
+
+        int curRank = 1;
+        for (int i = STU_COUNT - 1; i >= 0; i--) {
+            if (ranks[indices[i]] == -1) {
+                ranks[indices[i]] = curRank;
+                for (int j = i - 1; j >= 0; j--) {
+                    if (totalScores[indices[j]] == totalScores[indices[i]]) {
+                        ranks[indices[j]] = curRank;
+                    } else {
+                        break;
+                    }
+                }
+                curRank++;
+            }
+        }
+        return ranks;
+    }
+}
