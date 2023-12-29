@@ -1,0 +1,67 @@
+spa - 전체를 계속 다시 불러오는건 비효율적이기 때문에 각각 모듈화 해서 불러옴
+하나의 컴포넌트 안에는 html css js가 다 들어간다.
+라우터 - 경로 선택
+
+npm install bootstrap-vue - 설치하면 부트스트랩 관련 파일들이 설치된다.
+
+[VUE]
+	<template> - 웹 브라우저에 출력하기 위한 명령 (html 코드들을 넣음)
+	<router-view/> - 컴포넌트를 화면에 출력 해 줄수 있게 하는 명령	(컴퍼넌트들은 라우터로 연결 되어있음.)
+
+	// 다른파일에서 export 해야 다른 파일에서 import를 할 수 있다.
+	export : 함수, 변수, 클래스 등 내보낼때
+	import : 자바스크립트 파일에서 가져올때
+	
+	라우터 설정 - 설정 안하면 코드 수정시 파일 경로 확인이 어려워진다.
+		ㄴ라우터로 모듈의 경로를 찾을수 있다. (안내자라고 생각하면 좋다.)
+		
+	const pageRouter = {
+		path: "/", // 루트
+		name: "layout",
+		redirect: "/main", // index는 header footer 밖에 없으니 초기 화면에 필요한 페이지(main)를 불러온다.
+		component: () => import("@/layout/index.vue"),
+		
+		children: [ // index.vue의 내용을 상속 받는다.
+        {
+            path: "/main",
+            name: "main",
+            component: () => import("@/views/main.vue"),
+        },
+    ],
+};
+export default pageRouter;
+		
+		
+	(v-for)
+		<div id="app">
+			<ul>
+				//배열의 각 항목을 반복하면서 리스트 아이템을 생성
+				<li v-for="item in items">{{item}}</li> //배열로 받는 방법
+			</ul>
+		</div>
+		
+		//vue 인스턴스 생성
+		new Vue({
+			el: '#app', // el 마운트 지정이라고 표현한다, id=app이니 #app
+			data: {
+				// 배열 데이터
+				items: ['Apple','Banana','Orange','Grapes']
+			}
+		});
+//-------------------------------------------------------------------------------	
+	(v-if)
+		<div id="app">
+			//조건에 따라 엘리먼트를 표시하거나 숨기기
+			<p v-if="showMessage">이 메시지는 표시됩니다.</p> //배열로 받는 방법
+			<p v-else>이 메시지는 숨겨집니다.</p>
+		</div>
+		
+		//vue 인스턴스 생성
+		new Vue({
+			el: '#app',
+			data: {
+				// 조건을 나타내는 데이터
+				showMessage: true
+			}
+		});		
+		
