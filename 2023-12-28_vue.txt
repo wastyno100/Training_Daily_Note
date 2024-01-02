@@ -17,9 +17,12 @@ FrameWork - 모듈화 되어있다, 모듈간의 조합으로 완성체를 만�
 		nvm install - 프로젝트 생성 (생성 할 프로젝트 디렉토리가 존재 해야 한다.)
 		nvm server - 로컬서버 구동
 		
-		npm install -g @vue/cli - vuecli 설치
 		npm init -y - 노드 기반으로 시작한다는걸 정의
+		
+		npm install vue
+		npm install -g @vue/cli - vuecli 설치
+
 		vue create testvue - vue 프로젝트 생성
 			ㄴ 맨밑 - babel, type, router, vuex, css, linter 체크 - 2.x - y - y - y - sass/scss - error - lint on save - json - y - enter
 		npm run serve - 서버시작?
-		
+		vue add router

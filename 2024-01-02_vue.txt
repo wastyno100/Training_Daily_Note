@@ -1,0 +1,21 @@
+페이지 이동 시 헤더, 푸터는 고정이기 때문에 가운데 필요한 페이지만 바꿔줌.
+
+app.vue는 모델
+mount는 논리적인걸 물리적으로 바꿔주는것
+양식(form) -> 태그 안에 입력 내용을 submit(웹 서버에 전송) 하다.
+
+
+.system > button:nth-of-type(1) - 버튼모양을 이미지로 바꿔줌
+
+    methods: {
+        methods: {
+			goToPage(target) {
+				if (this.$router.currentRoute.path !== target) {
+					this.$router.push(target);
+					//target은 위 onclick시 불러오는 goTopage(item.link)와 같다고 생각
+					//this는 vue의 인스턴스를 의미 함.
+					//$router는 router\modules\pageRouter.js 와 같다. (index.js에 선언 한 router랑 같나?)
+					//currentRoute(현재 사용하는 라우터)의 path(/main 등 주소)가 target(내가 클릭한 링크)와 같지 않으면 클릭 한 링크를 push(넣어줌)
+				}
+			},
+		}
