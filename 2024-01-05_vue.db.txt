@@ -1,0 +1,22 @@
+[ubuntu]
+	sudo apt-get update -> sudo apt-get upgrade
+		-> sudo apt-get install mariadb-server -> sudo mysql_secure_installation
+		
+		
+		
+[ununtu server]
+	(AJax)
+		1. Js 사용
+		2. 제이쿼리 통해 구현가능
+		3. 비동기 HTTP 통신
+		4. XML 기반 ( Jsp, php 기반의 사용을 전제 )
+	(Axios)
+		1. Js 사용
+		2. Node 기반 promise Api
+		3. 비동기 HTTP 통신 라이브러리 ( npm install axios 해야 한다. )
+		
+		
+		
+		
+postman을 다운로드
+			

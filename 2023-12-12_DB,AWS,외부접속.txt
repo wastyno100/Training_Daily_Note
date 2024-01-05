@@ -25,7 +25,7 @@ aws, ubuntu 둘 다 외부접속을 허용하지말고 한쪽만 다 열고 다�
 			ufw -> port와 관련 됨
 			AWS는 방화벽보다 인바운드 규칙이 우선이다.
 			AWS 인바운드에서 열어주고 ubuntu는 최대한 건드리지 않는것이 좋을수있다.
-			sudo utf allow 3306/tcp로 방화벽에서 DB 허용
+			sudo ufw allow 3306/tcp로 방화벽에서 DB 허용
 			sudo ufw allow from 192.168.0.3 to any port 22 proto tcp - 192.168.0.3의 모든 접속 허용 (to any - 해당 ip 전부, proto - 프로토콜 종류, TCP/UDP 선택)
 				ㄴ SSH 접속할수 있는 특정 ip를 지정하는 결과 도출
 			sudo ufw allow 123/udp
@@ -48,7 +48,6 @@ aws, ubuntu 둘 다 외부접속을 허용하지말고 한쪽만 다 열고 다�
 			Grant ALL PRIVILEGS ON *.* To 'papawon'@'%' with grant option; - 권한부여 (사용자가 생성 되어도 권한이 없으면 아무것도 못함)
 			grant all on *.* to 'pts'@'%' identified by '1234' with grant option; - 권한부여 (패스워드 포함)
 			Revoke - 권한회수
-		
 		-설명-
 			ALL PRIVILEGS - CRUD권한을 다 준다는 뜻이다.
 			*.* - 왼쪽부터 DB명.테이블명이다.
